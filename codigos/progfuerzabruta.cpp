@@ -3,9 +3,11 @@
 #include <string>
 #include <algorithm>
 #include <climits>
+#include <chrono>
 #include "funcostos.h"
 
 using namespace std;
+using namespace chrono;
 
 int DME_Fuerza_Bruta(const string &cadena1, const string &cadena2, int i, int j) {
     if (i == 0) return j * costo_ins(cadena2[j - 1]);
@@ -39,7 +41,15 @@ int main() {
     getline(archivo, cadena2);
     archivo.close();
 
+    auto inicio = high_resolution_clock::now();
+
     int distancia = DME_Fuerza_Bruta(cadena1, cadena2, cadena1.size(), cadena2.size());
+
+    auto fin = high_resolution_clock::now();
+    auto duracion = duration_cast<microseconds>(fin - inicio);
+
     cout << "La distancia minima de edicion es: " << distancia << endl;
+    cout << "Tiempo de ejecucion: " << duracion.count() << " microsegundos" << endl;
+
     return 0;
 }

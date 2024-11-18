@@ -1,8 +1,18 @@
+Todos los códigos y dependencias utilizados se encuentran en el siguiente enlace de Github, además, las instrucciones para trabajar con los programas deben realizarse en dicho directorio por consola.
+
 \begin{mdframed}
-    \textbf{La extensión máxima para esta sección es de 1 página.}
+\url{https://github.com/sPyKeRT1/FranciscoRebolledo_Tarea2_3/tree/main/codigos}
 \end{mdframed}
 
-Aquí deben explicar la estructura de sus programas haciendo referencias a los archivos y funciones de su entrega. No adjunte código en esta sección.
-\begin{mdframed}
-    Si se utiliza algún código, idea, o contenido extraído de otra fuente, este \textbf{debe} ser citado en el lugar exacto donde se utilice, en lugar de mencionarlo al final del informe.
-\end{mdframed}
+Para trabajar de mejor forma los programas de C++ y facilitar su uso junto al generador de casos de prueba en Python se utiliza la herramienta Makefile bajo las siguientes instrucciones:
+
+\begin{itemize}
+    \item \textbf{make all}: Compila los archivos de C++ para posteriormente ejecutarlos junto a los demás.
+    \item \textbf{make run}: Ejecuta los programas en el orden Generador->Programación Dinámica->Fuerza Bruta.
+    \item \textbf{make clear}: Elimina los archivos objetivo necesarios para ejecutar los programas de C++.
+\end{itemize}
+
+La estructura general que da soporte para implementar las funcionalidades esperadas para los algoritmos consta de 5 archivos de texto para guardar por separado las palabras en \textbf{'cadenas.txt'} y las 4 tablas de costos para las operaciones insertar en \textbf{'cost\_insert.txt'}, borrar en \textbf{'cost\_delete.txt'}, reemplazar en \textbf{'cost\_replace.txt'} y transponer en \textbf{'cost\_transpose.txt'}; además, se implementa \textbf{'generador.py'} para crear un caso de prueba en base a los parámetros que se le entreguen por entrada estándar y junto a esto, se agregan los archivos \textbf{'funcostos.h'} y \textbf{'funcostos.cpp'} donde se definen e implementan las funciones que obtienen los costos directamente desde las tablas antes mencionadas para los algoritmos.\\
+
+Al implementar los algoritmos en \textbf{'progfuerzabruta.cpp'} y \textbf{'progdinamica.cpp'} se busca mantener los algoritmos lo más limpios posible para que no deban realizar tareas de entrada o salida de datos fuera del llamado a las funciones de costo, por lo que, primero leen desde el archivo 'cadenas.txt' las cadenas de caracteres a trabajar y las pasan como parámetro a las funciones \textbf{DME\_Fuerza\_Bruta(cadena1, cadena2, tamaño\_cadena1, tamaño\_cadena2)} y \textbf{DME\_Programacion\_Dinamica(cadena1, cadena2)}  de forma respectiva, las cuales como se mostró anteriormente ejecutan el algoritmo 
+correspondiente y devuelven la distancia mínima de edición para que después la función main se encargue de mostrar los datos obtenidos del proceso por pantalla y finalizar su ejecución. 

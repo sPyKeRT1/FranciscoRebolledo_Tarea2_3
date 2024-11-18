@@ -1,42 +1,43 @@
-\epigraph{\textit{``Indeed, brute force is a perfectly good technique in many cases; the real question is, can we use brute force in such a way that we avoid the worst-case behavior?''}}{--- \citeauthor{taocv3}, \citeyear{taocv3} \cite{taocv3}}
+
+\subsubsection{Descripción de la solución}
+
+El algoritmo diseñado funciona de forma recursiva para abordar una cantidad mayor de casos sin colapsar la memoria del computador pero sin abandonar el principio de fuerza bruta al buscar exhaustivamente entre todas las posibilidades generadas en el árbol recursivo, la base del algoritmo es ir letra por letra evaluando las 4 operaciones y repetir por cada una para la letra siguiente hasta llegar a transformar la cadena1 en la cadena2 y luego buscar cual tuvo el mínimo costo.
+
+\subsubsection{Complejidad Temporal y Espacial}
+
+Dada la forma del problema, las complejidades están directamente relacionadas al largo de las cadenas, por lo que \textbf{a} y \textbf{b} son respectivamente el número de caracteres para cadena1 y cadena2. Definidos estos valores, \textbf{n} representa todos los posibles valores, por lo que se asume que sera la cadena más larga. Para el análisis de la complejidad temporal y espacial, se verifica que la función posee un factor de recurrencia de 4 y va guardando todos los posibles valores, por lo que se obtienen los valores:
+\begin{center}
+\begin{tabular}{c|c}
+\textbf{Complejidad Temporal} & \textbf{Complejidad Espacial} \\ \hline
+$T(n) = O(4^{ n})$ & $E(n) = O(n))$
+\end{tabular}
+\end{center}
+
+\subsubsection{Pseudocódigo del algoritmo utilizando fuerza bruta}
 
 \begin{algorithm}[H]
-    \SetKwProg{myproc}{Procedure}{}{}
-    \SetKwFunction{AlgorithmName}{AlgorithmName}  % Cambia 'AlgorithmName' por el nombre del enfoque elegido
-    \SetKwFunction{AuxiliaryFunction}{AuxiliaryFunction}  % Función auxiliar de ejemplo
+\DontPrintSemicolon
+\KwFunction{$\textbf{Procedure}\text{ DME\_Fuerza\_Bruta}(\text{cadena1}, \text{cadena2}, i, j)$}\\
+    \If{$i == 0$}{
+        \Return $j \cdot \text{costo\_ins}(\text{cadena2}[j-1])$\;
+    }
+    \If{$j == 0$}{
+        \Return $i \cdot \text{costo\_del}(\text{cadena1}[i-1])$\;
+    }
     
-    \DontPrintSemicolon
-    \footnotesize
-
-    % Definición del algoritmo principal
-    \myproc{\AlgorithmName{S1, S2}}{
-    \uIf{S1 está vacía}{
-        \Return longitud de S2\;  % Return explícito si S1 está vacía
+    \If{$\text{cadena1}[i-1] == \text{cadena2}[j-1]$}{
+        \Return $\text{DME\_Fuerza\_Bruta}(\text{cadena1}, \text{cadena2}, i-1, j-1)$\;
     }
-    \uElseIf{S2 está vacía}{
-        \Return longitud de S1\;  % Return explícito si S2 está vacía
+    
+    $insertar \gets \text{DME\_Fuerza\_Bruta}(\text{cadena1}, \text{cadena2}, i, j-1) + \text{costo\_ins}(\text{cadena2}[j-1])$\;
+    $eliminar \gets \text{DME\_Fuerza\_Bruta}(\text{cadena1}, \text{cadena2}, i-1, j) + \text{costo\_del}(\text{cadena1}[i-1])$\;
+    $sustituir \gets \text{DME\_Fuerza\_Bruta}(\text{cadena1}, \text{cadena2}, i-1, j-1) + \text{costo\_sub}(\text{cadena1}[i-1], \text{cadena2}[j-1])$\;
+    
+    $transponer \gets \infty$\;
+    \If{$i > 1$ \KwAnd $j > 1$ \KwAnd $\text{cadena1}[i-1] == \text{cadena2}[j-2]$ \KwAnd $\text{cadena1}[i-2] == \text{cadena2}[j-1]$}{
+        $transponer \gets \text{DME\_Fuerza\_Bruta}(\text{cadena1}, \text{cadena2}, i-2, j-2) + \text{costo\_trans}(\text{cadena1}[i-2], \text{cadena1}[i-1])$\;
     }
-    \uElseIf{S1[0] = S2[0]}{
-        \Return \AlgorithmName{S1[1:], S2[1:]}  % Llamada recursiva
-    }
-    \Else{
-        % Ejemplo de llamado a una función auxiliar
-        $costo \leftarrow \AuxiliaryFunction{S1, S2}$\;
-        \Return costo\;  % Retornar el valor calculado
-    }
-    }
-
-    % Definición de la función auxiliar
-    \myproc{\AuxiliaryFunction{S1, S2}}{
-    % Acciones o cálculos auxiliares
-    \uIf{S1 y S2 son similares}{
-        \Return algún valor o costo\;  % Retornar el valor calculado por la función auxiliar
-    }
-    \Else{
-        % Llamar de nuevo a la función principal
-        \Return \AlgorithmName{S1 modificado, S2}\;  % Llamada recursiva y retorno del resultado
-    }
-    }
-    \caption{Este es solo un ejemplo de cómo estructurar el pseudocódigo, con retornos explícitos y llamados a funciones.}
-    \label{alg:mi_algoritmo_1}
+    
+    \Return $\min(\{insertar, eliminar, sustituir, transponer\})$\;
+\caption{DME\_Fuerza\_Bruta}
 \end{algorithm}

@@ -2,9 +2,11 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <chrono>
 #include "funcostos.h"
 
 using namespace std;
+using namespace chrono;
 
 int DME_Programacion_Dinamica(const string &cadena1, const string &cadena2) {
     int m = cadena1.size();
@@ -48,7 +50,13 @@ int main() {
     getline(archivo, cadena2);
     archivo.close();
 
+    auto inicio = high_resolution_clock::now();
     int distancia = DME_Programacion_Dinamica(cadena1, cadena2);
+    auto fin = high_resolution_clock::now();
+    auto duracion = duration_cast<microseconds>(fin - inicio);
+
     cout << "La distancia minima de edicion es: " << distancia << endl;
+    cout << "Tiempo de ejecucion: " << duracion.count() << " microsegundos" << endl;
+
     return 0;
 }
