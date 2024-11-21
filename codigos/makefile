@@ -23,10 +23,12 @@ $(EXEC2): $(OBJ2) $(FUNCOBJ)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-run: all
+create:
 	@echo "Ejecutando generador.py:"
 	@python3 generador.py
 	@echo ""
+
+run: all
 	@echo "Ejecutando $(EXEC1):"
 	@./$(EXEC1)
 	@echo ""

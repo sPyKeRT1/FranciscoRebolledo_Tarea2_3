@@ -1,15 +1,15 @@
 
 \subsubsection{Descripción de la solución}
 
-El algoritmo diseñado funciona de forma recursiva para abordar una cantidad mayor de casos sin colapsar la memoria del computador pero sin abandonar el principio de fuerza bruta al buscar exhaustivamente entre todas las posibilidades generadas en el árbol recursivo, la base del algoritmo es ir letra por letra evaluando las 4 operaciones y repetir por cada una para la letra siguiente hasta llegar a transformar la cadena1 en la cadena2 y luego buscar cual tuvo el mínimo costo.
+El algoritmo diseñado funciona de forma recursiva para abordar una cantidad mayor de casos sin colapsar la memoria del computador pero sin abandonar el principio de fuerza bruta al buscar exhaustivamente entre todas las posibilidades generadas en el árbol recursivo, la base del algoritmo es ir letra por letra evaluando las 4 operaciones y repetir por cada una para la letra siguiente hasta llegar a transformar la cadena A en la cadena B y luego buscar cual tuvo el mínimo costo dentro de todas esas posibilidades.
 
 \subsubsection{Complejidad Temporal y Espacial}
 
-Dada la forma del problema, las complejidades están directamente relacionadas al largo de las cadenas, por lo que \textbf{a} y \textbf{b} son respectivamente el número de caracteres para cadena1 y cadena2. Definidos estos valores, \textbf{n} representa todos los posibles valores, por lo que se asume que sera la cadena más larga. Para el análisis de la complejidad temporal y espacial, se verifica que la función posee un factor de recurrencia de 4 y va guardando todos los posibles valores, por lo que se obtienen los valores:
+Dada la forma del problema, las complejidades están directamente relacionadas al largo de las cadenas, por lo que \textbf{a} y \textbf{b} son respectivamente el número de caracteres para la cadena A y la cadena B. Definidos estos valores, \textbf{n} debe representa todos los posibles números de entrada, por lo que sera correspondiente al valor de la cadena más larga entre a y b. Para el análisis de las complejidades, se verifica que la función posee un factor de recurrencia de 4 y va guardando todos los posibles valores en cada oportunidad, por lo que se obtienen los siguientes valores:
 \begin{center}
 \begin{tabular}{c|c}
 \textbf{Complejidad Temporal} & \textbf{Complejidad Espacial} \\ \hline
-$T(n) = O(4^{ n})$ & $E(n) = O(n))$
+$T(n) = O(4^{n})$ & $E(n) = O(n))$
 \end{tabular}
 \end{center}
 

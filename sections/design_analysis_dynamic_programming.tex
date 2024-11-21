@@ -1,7 +1,6 @@
 \subsubsection{Descripción de la solución}
 
-De forma similar, pero en complejidad mucho menor al enfoque de fuerza bruta, la solución es plantear la recursividad de la función principal pero con la diferencia de guardar los casos intermedios . Construye una matriz de tamaño 
-(m+1)×(n+1), donde m y n son las longitudes de las cadenas, para almacenar los costos mínimos de transformar los primeros i caracteres de una cadena en los primeros j de la otra. Inicializa los casos base para manejar transformaciones desde o hacia cadenas vacías, y luego llena la matriz evaluando las operaciones de insertar, eliminar, reemplazar y, si es posible, transponer caracteres. El costo mínimo para cada operación se calcula acumulativamente, evitando cálculos redundantes. Finalmente, el valor en la celda (m,n) de la matriz representa el costo mínimo total.
+De forma similar, pero con mucha menor complejidad en comparación al enfoque de fuerza bruta, la solución al problema se encuentra al plantear la recursividad de la función principal, con la diferencia esta vez de que se deben guardar los casos intermedios para utilizarlos en la construcción de la solución principal. Por lo que primero, el algoritmo construye una matriz de tamaño (a+1)×(b+1), donde a y b son las longitudes de las cadenas A y B respectivamente, con el motivo de almacenar los costos mínimos de transformar los primeros i caracteres de una cadena en los primeros j de la otra. Luego, inicializa los casos base para manejar transformaciones desde o hacia cadenas vacías y después llena la matriz evaluando las operaciones de insertar, eliminar, reemplazar y, si es posible, transponer caracteres. Así, el costo mínimo para cada operación se calcula de forma acumulativa, evitando cálculos redundantes. Finalmente, el valor en la celda (a,b) de la matriz representa el costo mínimo total.
 
 \subsubsection{Relación de recurrencia}
 
@@ -17,17 +16,16 @@ De forma similar, pero en complejidad mucho menor al enfoque de fuerza bruta, la
 
 \subsubsection{Identificación de subproblemas}
 
-los subproblemas son las distancias mínimas de edición entre todos los prefijos de las dos cadenas. Específicamente, los subproblemas corresponden a calcular la distancia mínima de edición entre los primeros i caracteres de la primera cadena y los primeros j caracteres de la segunda cadena. La solución final se obtiene calculando la distancia entre las cadenas completas, es decir, entre los primeros m caracteres de la primera cadena y los primeros n caracteres de la segunda cadena.
+Los subproblemas son las distancias mínimas de edición entre todos los prefijos de las dos cadenas. Específicamente, los subproblemas corresponden a calcular la distancia mínima de edición entre los primeros i caracteres de la primera cadena y los primeros j caracteres de la segunda cadena. La solución final se obtiene calculando la distancia entre las cadenas completas, es decir, entre los primeros a caracteres de la primera cadena y los primeros b caracteres de la segunda cadena.
 
 \subsubsection{Complejidad Temporal y Espacial}
 
-Para obtener las complejidades con un enfoque de programación dinámica resulta relevante el largo de las 2 cadenas para el tamaño de la matriz de memoria que se creará en el proceso, en especifico m es la longitud de la primera cadena y 
-n es la longitud de la segunda cadena. El algoritmo llena una matriz de dimensiones m+1 por n+1, y cada celda de la matriz se calcula en tiempo constante de forma que cada celda almacena un subproblema. Así se puede verificar que:
+Para obtener las complejidades con un enfoque de programación dinámica resulta relevante el largo de las 2 cadenas para el tamaño de la matriz de memoria que se creará en el proceso, como se menciono anteriormente, a es la longitud de la primera cadena y b es la longitud de la segunda cadena. Con esto, el algoritmo llena una matriz de dimensiones (a+1)×(b+1), calculando cada celda de la matriz en tiempo constante y de forma que cada celda almacena un subproblema. Bajo esta descripción se puede verificar:
 
 \begin{center}
 \begin{tabular}{c|c}
 \textbf{Complejidad Temporal} & \textbf{Complejidad Espacial} \\ \hline
-$T(n) = O(m * n)$ & $E(n) = O(m *n))$
+$T(n) = O(a * b) = O(n^{2})$ & $E(n) = O(a * b) =  O(n^{2})$
 \end{tabular}
 \end{center}
 
@@ -36,20 +34,20 @@ $T(n) = O(m * n)$ & $E(n) = O(m *n))$
 \begin{algorithm}[H]
 \DontPrintSemicolon
 \KwFunction{$\textbf{Procedure}\text{ DME\_Programacion\_Dinamica}(\text{cadena1}, \text{cadena2})$}\\
-    $m \gets \text{len}(\text{cadena1})$\;
-    $n \gets \text{len}(\text{cadena2})$\;
+    $a \gets \text{len}(\text{cadena1})$\;
+    $b \gets \text{len}(\text{cadena2})$\;
     
-    Crear matriz $matriz$ de tamaño $(m+1) \times (n+1)$ inicializada con ceros\;
+    Crear matriz $matriz$ de tamaño $(a+1) \times (b+1)$ inicializada con ceros\;
     
-    \For{$i \gets 0$ \KwTo $m$}{
+    \For{$i \gets 0$ \KwTo $a$}{
         $matriz[i][0] \gets i \cdot \text{costo\_del}(\text{cadena1}[i-1])$\;
     }
-    \For{$j \gets 0$ \KwTo $n$}{
+    \For{$j \gets 0$ \KwTo $b$}{
         $matriz[0][j] \gets j \cdot \text{costo\_ins}(\text{cadena2}[j-1])$\;
     }
     
-    \For{$i \gets 1$ \KwTo $m$}{
-        \For{$j \gets 1$ \KwTo $n$}{
+    \For{$i \gets 1$ \KwTo $a$}{
+        \For{$j \gets 1$ \KwTo $b$}{
             \If{$\text{cadena1}[i-1] == \text{cadena2}[j-1]$}{
                 $matriz[i][j] \gets matriz[i-1][j-1]$\;
             }
@@ -73,6 +71,6 @@ $T(n) = O(m * n)$ & $E(n) = O(m *n))$
             }
         }
     }
-    \Return $matriz[m][n]$\;
+    \Return $matriz[a][b]$\;
 \caption{DME\_Programacion\_Dinamica}
 \end{algorithm}
